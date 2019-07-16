@@ -1,0 +1,55 @@
+Author: Adrien B.
+Date: 05/01/2019
+Title: Application Snippet / Boiler Plate for Mongo / Express / Nodejs
+
+
+
+
+
+Open app.js:
+
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+var bodyParser 			= require('body-parser'),
+	mongoose 		= require('mongoose'),
+	express 		= require('express'),
+	app 			= express();
+
+
+// ********* We configure mongoose **********
+
+mongoose.connect('mongodb://localhost:27017/restful_blog_app', {useNewUrlParser: true});
+
+//********** all the mentioned views have an *.ejs extension **************
+app.set('view engine', 'ejs');
+
+//********** we can now serve custom stylesheet in the public directory **************
+app.use(express.static("public"));
+
+// ********** our app.js needs to use our body-parser *****************
+app.use(bodyParser.urlencoded({extended: true}));
+
+
+
+//************************************
+//*************		ROUTES
+//************************************
+
+
+
+//************************************
+//*************		REQUEST LISTENERS
+//************************************
+
+// this line can be used at the end of each and every app we will do 
+app.listen(3000, function(){
+	console.log("The RESTful BlogApp has started!");
+});
+
+
+
+
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
