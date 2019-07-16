@@ -1,0 +1,71 @@
+	#What is MongoDB
+A non relational database (NOSQL database)
+
+Part of the MEAN stack Mongo Express Angular Node	
+
+
+	#CRUD
+Create Read Update Destroy
+
+
+
+	#The first and basic mongo commands
+
+
+	./mongod
+Open a new terminal --> mongo
+Starts a new mongodemon (mongo shell), we use it to debug / test
+We then open a new terminal window and can use the following:
+s
+	
+	
+	mongo
+To start the mongoshell from the second terminal
+
+
+	help
+Will provide a glossary of commands
+
+	show dbs
+Will show all the db names available
+We usually make a separate database for every app we create
+We usually start with the admin and local databases by default
+	
+	use
+Select the db we re gonna use, if we enter a new name, a new db will be created
+
+
+	insert
+db.dogs.insert)({name: "Rusty", breed: "Mutt"})
+
+
+	find
+db.dogs.find()
+or
+db.dogs.find({name:"Rusty"})
+
+
+	update 
+db.dogs.update({name: "Lulu"}, {breed: "Labradoodle"})
+
+db.dogs.update({name: "Rusty"}, {$set: {name: "Tater", isCute: true}})
+	
+	
+	remove
+db.dogs.remove({breed: "Labradoodle"})
+
+
+
+
+			#Mongoose
+
+	* What is Mongoose
+Mongoose is known as an ODM Object Data Mapper
+It's a way for us to write js and interact with our DB:
+	
+	
+	* Why are we using it?
+Allows us to interact easily with a Mongodb
+	
+	* Interact with a Mongo Database using Mongoose
+see cats.js
