@@ -1,12 +1,14 @@
 Author: Adrien B.
-Date: 05/01/2019
-Title: Application Snippet / Boiler Plate for Mongo / Express / Nodejs
+Date: 	05/01/2019
+Title: 	Application Snippet / Boiler Plate for Mongo / Express / Nodejs
 
 
 
-
-
-Open app.js:
+1- mkdir application_name
+2- cd application_name
+3- npm init (don't forget to entry point target to app.js)
+4- npm install express mongoose body-parser --save		(body-parser allows to get data out of the form / sends it to request body and parse it)
+5- Open app.js:
 
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
@@ -18,7 +20,6 @@ var bodyParser 			= require('body-parser'),
 
 
 // ********* We configure mongoose **********
-
 mongoose.connect('mongodb://localhost:27017/restful_blog_app', {useNewUrlParser: true});
 
 //********** all the mentioned views have an *.ejs extension **************
