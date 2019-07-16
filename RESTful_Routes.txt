@@ -1,0 +1,21 @@
+							Representational State Transfer
+
+
+REST is a pattern (or an architecture) - just a mapping between HTTP routes and CRUD (CREATE READ UPDATE DESTROY) together
+
+
+
+
+							* THE 7 RESTFUL ROUTES *
+
+
+
+name		url						verb				description
+=======================================================================================================================================
+INDEX		/dogs					GET					Displat a list of all dog
+NEW		/dogs/new				GET					Displays form to make a new dog
+CREATE		/dogs					POST					Add a new dog to DB
+SHOW		/dogs/:inside				GET					Shows info about one dog
+EDIT		/dogs/:id/edit				GET					Shows edit form for one dog
+UPDATE		/dogs/:id				PUT					Update a particular dog, then redirect somewhere
+DESTROY		/dogs/:id				DELETE					Delete a particular dog, then redirect somewhere
