@@ -9,11 +9,11 @@ Title: 	Application Snippet / Boiler Plate for Mongo / Express / Nodejs
 3- npm init (don't forget to entry point target to app.js)
 4- npm install express mongoose body-parser --save		(body-parser allows to get data out of the form / sends it to request body and parse it)
 5- Open app.js:
+-------------------------------------------------------------------------------------------------
+app.js
+-------------------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
-
-var bodyParser 			= require('body-parser'),
+var bodyParser 		= require('body-parser'),
 	mongoose 		= require('mongoose'),
 	express 		= require('express'),
 	app 			= express();
@@ -32,10 +32,39 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+//************************************
+//*************		MONGOOSE/SCHEMA CREATION
+//************************************
+
+var blogSchema = new mongoose.Schema({
+	title: String,
+	image: {type: String, default: "placeholderimage.jpg"},
+	body: String,
+	created: {type: Date, default: Date.now}
+});
+
+
+
 
 //************************************
-//*************		ROUTES
+//*************		MONGOOSE/MODEL CONFIG
 //************************************
+
+//we compile our schema into a model
+var Blog = mongoose.model("Blog", blogSchema);
+
+
+// Blog.create({
+// 	title: "Test Blog",
+// 	image: "https://images.unsplash.com/photo-1543892673-921992c933f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+// 	body:	"HELLO THIS IS A BLOG POST!"
+// });
+
+
+//************************************
+//*************		RESTFUL ROUTES
+//************************************
+
 
 
 
@@ -44,13 +73,118 @@ app.use(bodyParser.urlencoded({extended: true}));
 //************************************
 
 // this line can be used at the end of each and every app we will do 
-app.listen(3000, function(){
-	console.log("The RESTful BlogApp has started!");
+app.listen(9000, function(){
+	console.log("The RESTful BlogApp server is running!");
 });
 
 
+--------------------------------------------------------------------------------------------------
+app.js end
+--------------------------------------------------------------------------------------------------
+
+
+
+6- After starting ./mongod - open a new termional and connect to mongo
+7- (from the root folder) mongo
+8- show dbs
+9- use db_name
+10- db.blogs.find()		( We should see our first post created )
+11- dont forget to comment out our test post Blog.create
+12- we can now build our first RESTFUL ROUTE
+
+--------------------------------------------------------------------------------------------------
+app.js
+--------------------------------------------------------------------------------------------------
+
+//************************************
+//*************		RESTFUL ROUTES
+//************************************
+
+
+app.get("/blogs", function(req,res){
+	res.render("index");
+});
 
 
 --------------------------------------------------------------------------------------------------
+app.js end
 --------------------------------------------------------------------------------------------------
 
+13- We need to create our index.ejs in our views directory
+14- mkdir views
+15- touch views/index.ejs
+
+
+
+
+--------------------------------------------------------------------------------------------------
+index.ejs 
+--------------------------------------------------------------------------------------------------
+
+<h1>
+	INDEX PAGE!!!
+</h1>
+
+--------------------------------------------------------------------------------------------------
+index.ejs end
+--------------------------------------------------------------------------------------------------
+
+16- We can start node app.js
+17- go to our /blogs route in our browser
+18- We can now go back to our app.js and keep adding the routes
+
+
+--------------------------------------------------------------------------------------------------
+app.js
+--------------------------------------------------------------------------------------------------
+
+//************************************
+//*************		RESTFUL ROUTES
+//************************************
+
+app.get("/", function(req,res){
+	res.redirect("/blogs");
+});
+
+
+app.get("/blogs", function(req,res){
+	Blog.find({}, function(err,blogs){
+		if(err){
+			console.log(err);
+		} else {
+			res.render("index", {blogs: blogs});
+		}
+});
+});
+
+
+--------------------------------------------------------------------------------------------------
+app.js end
+--------------------------------------------------------------------------------------------------
+
+
+19- We can now go back to our template and add to it
+
+
+--------------------------------------------------------------------------------------------------
+index.ejs 
+--------------------------------------------------------------------------------------------------
+
+<h1>
+	INDEX PAGE!!!
+</h1>
+
+<% blogs.forEach (function(blog){ %>
+	<div>
+		<h2><%= blog.title %></h2>
+		<img src = "<%= blog.image %>">
+		<span><%= blog.created %></span>
+		<p><%= blog.body %></p>
+	</div>
+<% }) %>
+
+--------------------------------------------------------------------------------------------------
+index.ejs end
+--------------------------------------------------------------------------------------------------
+
+20- node app.js
